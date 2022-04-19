@@ -15,6 +15,8 @@ Feature: Criar usuário
         When method post
         Then status 201
         And match response contains { code: 201, name: "Marcos Lira", email: "marcoslira@email.com" }
+        * def name = response.id
+        * def newName = call read("hook.feature@deletar")
 
     Scenario: Registra um novo usuário com email inválido
         And request {name: "Marcos Lira", email: "marcosliraemail.com"}
@@ -26,7 +28,9 @@ Feature: Criar usuário
         When method post
         Then status 422
         And match response contains {error: "User already exists"}
-
+                * def name = id.response.id
+        * def newName = call read("hook.feature@deletar")
+    
     Scenario: Cadastrar usuário com mais de 100 caracteres
         And request {name: "masdolerta55dyuismnd8peslu987wspçd4d7swimasdolerta55dyuismnd8peslu987wspçd4d7swiloaps2esucw7scyw8clfhapdmcy"}
         When method post

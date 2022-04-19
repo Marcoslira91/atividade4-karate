@@ -8,3 +8,10 @@ Feature: Hook
         And request payload
         When method post
         Then status 201
+
+    @deletar
+    Scenario: Deletar usuário
+        Given url baseUrlCrud
+        And path "users", "Nome"
+        When method delete
+        Then status 204
