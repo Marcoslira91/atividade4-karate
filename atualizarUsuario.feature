@@ -5,7 +5,7 @@ Feature: Atualizar usuário
 
 Background: Base url Crud
     Given url baseUrlCrud
-    * def email = java.util.UUID.randomUUID() + "@exemplo.com";
+    * def email = java.util.UUID.randomUUID() + "@email.com";
 
     * def payloadUpdate = { name: "Marcos Lira", email: "#(email)" }
     * def payload = { name: "Marcos", email: "#(email)" }
@@ -26,12 +26,12 @@ Scenario: Atualizar usuário por id não existente
     Then status 404
 
 Scenario: Atualizar usuário com email invalido
-    And request {name: "", email: "" }
+    And request {name: "Marcos", email: "#(email)" }
     When method put
     Then status 400
 
 Scenario: Atualizar usuário com mesmo email
-    And request {name: "", email: "" }
+    And request {name: "Marcos", email: "#(email)" }
     When method put
     Then status 422
     And matc response contains {error: "E-mail already in use"}
